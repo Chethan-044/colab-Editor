@@ -10,12 +10,12 @@ const authMiddleware = (req,res,next)=>{
     try{
         const decode = jwt.verify(authToken,process.env.JWT_SECRET);
         req.user = decode;
-        console.log(req.user);
-        next()
+       
+        return next()
         
     }catch(error){
         console.error(error);
-          return(res,401,'Invalid oe expired token');
+          return(res,401,'Invalid or expired token');
       
         
     }
