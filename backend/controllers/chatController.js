@@ -1,5 +1,4 @@
-const { response } = require("express");
-const { uploadFileToCloudinary } = require("../config/cloudinary");
+const response = require('../utils/responseHandler.js'); // adjust path as neededconst { uploadFileToCloudinary } = require("../config/cloudinary");
 const Conversation = require("../models/Conversation");
 const Message = require("../models/Message");
 
@@ -60,7 +59,7 @@ exports.sendMessage = async(req,res)=>{
         await message.save();
 
         if(message?.content){
-            ConversationRelaySession.lastMessage = message?.id
+            conversation.lastMessage = message?.id
         }
         conversation.unreadCount+=1;
         await conversation.save()
@@ -96,6 +95,7 @@ exports.getConversation = async(req,res)=>{
             }).sort({updatedAt:-1})
 
             return response(res,201,'Conversation get successfully')
+            
     }catch(error){
         console.error(error);
         return response(res,400,'Internal server error')
@@ -165,7 +165,7 @@ exports.deleteMessage = async(req,res)=>{
     const {messageId} =req.params;
     const userId = req.user.userId;
     try{
-        const message = await message.findById(messageId);
+        const message = await Message.findById(messageId);
         if(!message){
             return response(res,404,"Message not found")
         }
