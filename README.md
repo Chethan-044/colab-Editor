@@ -31,4 +31,4 @@ A real-time collaborative code editor built with modern web technologies.
 Pull the image from Docker Hub:
 
 ```bash
-docker pull chtnnn/colabeditor:<tagname>
+docker pull chtnnn/colabeditor:latest
